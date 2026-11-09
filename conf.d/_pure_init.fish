@@ -1,14 +1,13 @@
-# Deactivate the default virtualenv prompt so that we can add our own
-set --global --export VIRTUAL_ENV_DISABLE_PROMPT 1
-
-# Whether or not is a fresh session
-set --global _pure_fresh_session true
-
 set --global _pure_root (status current-filename | string replace --regex '/[^/]+$' '' | string replace --regex '/[^/]+$' '')
 
-# Register `_pure_prompt_new_line` as an event handler for `fish_prompt`
-for fpath in $fish_function_path
-    test -e $fpath/_pure_prompt_new_line.fish && source $fpath/_pure_prompt_new_line.fish
+if status is-interactive
+    # Pure owns virtualenv display and the initial prompt spacing.
+    set --global --export VIRTUAL_ENV_DISABLE_PROMPT 1
+    set --global _pure_fresh_session true
+
+    for fpath in $fish_function_path
+        test -e $fpath/_pure_prompt_new_line.fish && source $fpath/_pure_prompt_new_line.fish
+    end
 end
 
 function _pure \
@@ -22,7 +21,7 @@ end
 function _pure_install --on-event pure_install \
     --description 'Fisher handler when pure prompt is installed'
 
-    source $_pure_root/conf.d/pure.fish
+    source $_pure_root/conf.d/pure.fish --initialize
 
     printf "Now using: %s %s\n" \
         (_pure) \
@@ -36,13 +35,13 @@ function _pure_update --on-event _pure_init_update \
     --description 'Fisher handler pure prompt is updated'
 
     set --local previous_version $pure_version
-    source $_pure_root/conf.d/pure.fish
+    source $_pure_root/conf.d/pure.fish --initialize
 
     printf "Updating: %s %s → %s\n\t%s\n" \
         (_pure) \
         (set_color $pure_color_info)$previous_version(set_color normal) \
         (set_color --bold $pure_color_success)$pure_version(set_color normal) \
-        "  📖 release notes: "(set_color $pure_color_info)"https://github.com/pure-fish/pure/releases/tag/v$pure_version"(set_color normal)
+        "  📖 fork changes: "(set_color $pure_color_info)"https://github.com/lalvarezt/pure/commits/experiments"(set_color normal)
 end
 
 function _pure_uninstall --on-event pure_uninstall \

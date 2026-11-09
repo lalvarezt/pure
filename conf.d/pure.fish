@@ -1,5 +1,10 @@
 set --global pure_version 4.19.2  # For bug report and tag-after-merge workflow
 
+# Fisher lifecycle handlers explicitly request defaults in noninteractive shells.
+if not status is-interactive; and not contains -- --initialize $argv
+    return
+end
+
 # Base colors
 _pure_set_default pure_color_primary blue
 _pure_set_default pure_color_info cyan

@@ -27,7 +27,7 @@ end
 ) = master
 
 
-@test "_pure_parse_git_branch: returns number of commits behind current branch" (
+@test "_pure_parse_git_branch: returns a short commit ID for detached HEAD" (
     touch file.txt
     git add file.txt
     git commit --quiet --message="init"
@@ -39,7 +39,7 @@ end
     git checkout --quiet "HEAD~1"
 
     _pure_parse_git_branch
-) = 'master~1'
+) = (git rev-parse --short HEAD)
 
 
 after_all

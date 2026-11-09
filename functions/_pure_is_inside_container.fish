@@ -1,25 +1,32 @@
 function _pure_is_inside_container \
     --argument-names cgroup_namespace
-    set --query cgroup_namespace[1]; or set cgroup_namespace /proc/1/cgroup
+    if test "$pure_enable_container_detection" != true
+        return 1
+    end
 
-    set --local failure 1
-    if set --query pure_enable_container_detection; and test "$pure_enable_container_detection" = true
-        set --local success 0
-        if test -n "$container"
-            return $success
-        end
-
-        set --local os_name (uname -s)
-        # echo $os_name
-        if test "$os_name" = Linux
-            if _pure_detect_container_by_cgroup_method $cgroup_namespace
-                return $success
-            end
-
-            if _pure_detect_container_by_pid_method
-                return $success
-            end
+    # Explicit fixture paths are always read; normal detection is stable per shell.
+    set --local cache_result false
+    if not set --query cgroup_namespace[1]
+        set cgroup_namespace /proc/1/cgroup
+        set cache_result true
+        if set --query _pure_cached_container_status
+            and test "$_pure_cached_container_environment" = "$container"
+            return $_pure_cached_container_status
         end
     end
-    return $failure
+
+    set --local result 1
+    if test -n "$container"
+        set result 0
+    else if test -r "$cgroup_namespace"; and _pure_detect_container_by_cgroup_method "$cgroup_namespace"
+        set result 0
+    else if _pure_detect_container_by_pid_method
+        set result 0
+    end
+
+    if test "$cache_result" = true
+        set --global _pure_cached_container_environment "$container"
+        set --global _pure_cached_container_status $result
+    end
+    return $result
 end

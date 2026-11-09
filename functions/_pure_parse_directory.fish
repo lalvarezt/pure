@@ -12,11 +12,9 @@ function _pure_parse_directory \
     end
 
     if test "$pure_truncate_prompt_current_directory_keeps" -ge 1
-        set folder (
-            string split '/' $folder \
-                | tail -n $pure_truncate_prompt_current_directory_keeps \
-                | string join '/'
-        )
+        set --local components (string split '/' -- "$folder")
+        set --local first -$pure_truncate_prompt_current_directory_keeps
+        set folder (string join '/' -- $components[$first..-1])
     end
 
     echo $folder

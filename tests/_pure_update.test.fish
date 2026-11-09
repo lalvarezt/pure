@@ -35,7 +35,7 @@ before_each
 ) = "Updating: ❯❮❯ pure 1.0.0 → 2.0.0"
 
 before_each
-@test "init/_pure_update: prints link to release notes" (
+@test "init/_pure_update: prints link to fork changes" (
     set --global pure_symbol_prompt "❯"
     set --global pure_symbol_reverse_prompt "❮"
     set --global pure_version 1.0.0 # current version
@@ -46,7 +46,7 @@ before_each
     echo "set --global pure_version 2.0.0 # new version" > $__fish_config_dir/conf.d/pure.fish
 
     _pure_update | head -n 2 | tail -n 1 | strip_ansi # get the second line of output, which contains the release notes link
-) = \t"  📖 release notes: https://github.com/pure-fish/pure/releases/tag/v2.0.0"
+) = \t"  📖 fork changes: https://github.com/lalvarezt/pure/commits/experiments"
 
 
 before_each

@@ -55,6 +55,8 @@ end
 
 @test "_pure_prompt_git: activates on dirty repository" (
     git init --quiet
+    touch dirty.file
+    set --universal pure_symbol_git_dirty '*'
     function _pure_prompt_git_dirty; echo '*'; end
     function _pure_prompt_git_pending_commits; echo $EMPTY; end
 
@@ -66,12 +68,22 @@ end
 @test "_pure_prompt_git: activates on repository with upstream changes" (
     git init --quiet
     function _pure_prompt_git_dirty; echo $EMPTY; end
+    git config --local user.email pure@example.invalid
+    git config --local user.name Pure
+    git add dirty.file
+    git -c commit.gpgsign=false commit --quiet --message initial
+    git branch upstream
+    git branch --set-upstream-to=upstream master >/dev/null
+    touch ahead.file
+    git add ahead.file
+    git -c commit.gpgsign=false commit --quiet --message ahead
+    set --universal pure_symbol_git_unpushed_commits '⇡'
     function _pure_prompt_git_pending_commits; echo 'v'; end
 
     set --universal pure_enable_git true
 
     _pure_prompt_git
-) = 'master v'
+) = 'master ⇡'
 
 @test "_pure_prompt_git: returns an $EMPTY string when pure_enable_git is false" (
     git init --quiet

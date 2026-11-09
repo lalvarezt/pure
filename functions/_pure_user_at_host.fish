@@ -1,5 +1,11 @@
 function _pure_user_at_host
-    set --local username (id -u -n) # current user name
+    set --local username "$USER"
+    if test -z "$username"
+        if not set --query _pure_cached_username
+            set --global _pure_cached_username (command id -u -n)
+        end
+        set username "$_pure_cached_username"
+    end
     set --local at_sign "@"
     set --local at_sign_color (_pure_set_color $pure_color_at_sign)
     set --local hostname_color (_pure_set_color $pure_color_hostname)

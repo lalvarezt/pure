@@ -4,11 +4,7 @@ function _pure_detect_container_by_pid_method \
 
     set --query proc_sched[1]; or set proc_sched /proc/1/sched
 
-    if test -e $proc_sched
-        head -n 1 $proc_sched \
-            | string match \
-            --quiet \
-            --invert \
-            --regex 'init|systemd|shepherd'
-    end
+    test -r "$proc_sched"; or return 1
+    read --local --line scheduler <"$proc_sched"
+    string match --quiet --invert --regex 'init|systemd|shepherd' -- "$scheduler"
 end
