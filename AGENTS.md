@@ -7,6 +7,8 @@
 * Run `node scripts/test-performance.cjs` for isolated regression checks.
 * Run `fish --no-config -n <file>` on changed Fish files.
 * Use local tools for validation. Do not use Docker for this fork.
+* Ignore inherited Docker build and CI instructions. Keep those files and
+  references in place; removing them is not part of local maintenance.
 * Before changing startup, Git rendering, or update behavior, read
   [docs/local-performance.md](docs/local-performance.md) for the fork's decisions,
   optional async integration check, profiling, and failure log location.
