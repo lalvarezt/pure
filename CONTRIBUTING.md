@@ -1,21 +1,8 @@
-## :+1: Work inside a Docker
+# Local development
 
-!!! info
-
-    We use [`docker`](https://docs.docker.com/install/) to isolate from our working environment.
-
-Specify the [`FISH_VERSION`][fish-releases] you want, and the `CMD` executed by the container:
-
-    make build-pure-on FISH_VERSION={{ pure.fish_version }}
-    make dev-pure-on FISH_VERSION={{ pure.fish_version }} CMD="fishtape tests/*.test.fish"
-
-!!! tip "Working with NixOS"
-
-    We have targets for `NixOS` called `nix-build-pure-on` and `nix-dev-pure-on`:
-
-    ```sh
-    ❯ make build-pure-on-nix dev-pure-on-nix FISH_VERSION={{ pure.fish_version }}
-    ```
+Run `node scripts/test-performance.cjs` for isolated local checks.
+See [local performance maintenance](docs/local-performance.md) for the async
+integration check, profiling, and failure diagnostics.
 
 ## Code Conventions
 

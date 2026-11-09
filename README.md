@@ -10,6 +10,9 @@
 This fork builds on [Pure](https://github.com/pure-fish/pure) by
 [Rafael Rinaldi](https://github.com/rafaelrinaldi) and the [contributors](https://github.com/pure-fish/pure/graphs/contributors).
 
+This fork's `experiments` branch contains local performance changes. See
+[local maintenance and validation](docs/local-performance.md).
+
 <!-- markdownlint-disable MD041 -->
 <div align="center">
 
@@ -37,7 +40,7 @@ This fork builds on [Pure](https://github.com/pure-fish/pure) by
 **:warning: requirements**: install [Fish shell](https://fishshell.com/) `≥3.x`, then install [Fisher](https://github.com/jorgebucaran/fisher) plugin manager:
 
 ```shell
-fisher install pure-fish/pure
+fisher install lalvarezt/pure@experiments
 ```
 
 ## Features

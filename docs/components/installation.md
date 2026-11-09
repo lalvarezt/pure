@@ -8,14 +8,14 @@
     Install [Fisher](https://github.com/jorgebucaran/fisher) plugin manager, then you can install `pure` latest version with:
 
     ```shell
-    fisher install pure-fish/pure
+    fisher install lalvarezt/pure@experiments
     ```
 
 === "Manually"
 
     1. Download the installer to `/tmp`
         ```shell
-        curl git.io/pure-fish --output /tmp/pure_installer.fish --location --silent
+        curl https://raw.githubusercontent.com/lalvarezt/pure/experiments/tools/installer.fish --output /tmp/pure_installer.fish --location --silent
         ```
 
     2. Source and trigger the installer
@@ -23,10 +23,10 @@
         source /tmp/pure_installer.fish; and install_pure
         ```
 
-=== "Test a Pull Request"
+=== "Personal branch"
 
-    Wanna preview a pull-request before it gets merged? Just append `@` symbol, followed by a tag, branch, or commit.
+    The local performance changes are maintained on `experiments`. Upstream changes reach this fork after an explicit merge and validation.
 
     ```shell
-    fisher install pure-fish/pure@v4.13.0
+    fisher install lalvarezt/pure@experiments
     ```

@@ -2,13 +2,14 @@
 
 * work in English
 
-## Setup commands
+## Local validation
 
-* use `make` to build and test the project locally on different environments ;
-* use `make` to test and build the documentation
-* when executing tests, use the following commands to run in a isolated environment:
-
-    make test-pure-on FISH_VERSION=(fish --version | string match --regex '(?:\\d+.?){3}') CMD="fishtape <files-to-test>"
+* Run `node scripts/test-performance.cjs` for isolated regression checks.
+* Run `fish --no-config -n <file>` on changed Fish files.
+* Use local tools for validation. Do not use Docker for this fork.
+* Before changing startup, Git rendering, or update behavior, read
+  [docs/local-performance.md](docs/local-performance.md) for the fork's decisions,
+  optional async integration check, profiling, and failure log location.
 
 ## Code style
 
