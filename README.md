@@ -1,3 +1,15 @@
+## Personal fork disclaimer
+> [!WARNING]
+> **This is a personal project, provided as-is.**
+>
+> I maintain this fork for my own use. Expect rough edges and changes driven by
+> my needs, with no guarantees of stability, maintenance, or support.
+>
+> Most of the changes in this fork were developed with AI assistance.
+
+This fork builds on [Pure](https://github.com/pure-fish/pure) by
+[Rafael Rinaldi](https://github.com/rafaelrinaldi) and the [contributors](https://github.com/pure-fish/pure/graphs/contributors).
+
 <!-- markdownlint-disable MD041 -->
 <div align="center">
 
